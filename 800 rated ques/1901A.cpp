@@ -37,30 +37,26 @@ int main()
     cin>>t;
     while(t--)
     {
-        int n;
-        cin>>n;
-        string s;
-        cin>>s;
-        int ans = 0;
+       int n,x;
+       cin>>n>>x;
+       vector<int> a(n);   
+       for(int i=0;i<n;i++)
+       {
+           cin>>a[i];
+       }
+        int maxi = 0;
         int cnt = 0;
-        for(char x : s)
-        {
-            if(x == '.')
-            cnt++;
-            if(x == '#' && cnt > 0)
-            {
-                ans += cnt;
-                cnt = 0;
+       for(int i=0;i<=n;i++)
+       {
+            if(i == 0)
+            maxi = max(maxi,a[i]);
+            else if(i == n)
+            maxi = max(maxi,(x-a[n-1])*2);
+            else{
+                maxi = max(maxi,a[i]-a[i-1]);
             }
-            if(cnt == 3)
-            {
-                ans = 2;
-                break;
-            }
-        }
-        if(s[n-1] == '.' && cnt > 0 && cnt<=2)
-        ans += cnt;
-        cout<<ans<<endl;
+       }
+       cout<<maxi<<endl;
     }
 
 return 0;
