@@ -2,3 +2,4 @@
 *.cph
 **/.cph/
 /test.cpp
+/template.cpp
