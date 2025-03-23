@@ -1,3 +1,4 @@
 .git
 *.cph
 **/.cph/
+/test.cpp
