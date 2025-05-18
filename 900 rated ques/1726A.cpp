@@ -266,25 +266,40 @@ void solve()
     for (int i = 0; i < n; i++)
         cin >> a[i];
 
-    for(int i = 0; i < n; i++)
-    {
-        if (a[i] == 1)
-        {
-            a[i] = 2;
-        }
-    }
-    for (int i = 1; i < n; i++)
-    {
-        if (a[i] % a[i - 1] == 0)
-        {
-            a[i] = a[i] + 1;
-        }
-    }
+    int maxi = INT_MIN;
+    int mini = INT_MAX;
+    int index_maxi = -1;
+    int index_mini = -1;
     for (int i = 0; i < n; i++)
     {
-        cout << a[i] << " ";
+        if (a[i] > maxi)
+        {
+            maxi = a[i];
+            index_maxi = i;
+        }
+        if (a[i] < mini)
+        {
+            mini = a[i];
+            index_mini = i;
+        }
     }
-    cout << endl;
+
+    if (index_mini == 0 || index_maxi == n - 1)
+    {
+        cout << maxi - mini << endl;
+        return;
+    }
+
+    int ans = INT_MIN;
+    ans = max(maxi - a[0], a[n - 1] - mini);
+
+    ans = max(ans, a[n - 1] - a[0]);
+    for (int i = 0; i < n - 1; i++)
+    {
+        ans = max(ans, a[i] - a[i + 1]);
+    }
+
+    cout << ans << endl;
 }
 
 // Main function
