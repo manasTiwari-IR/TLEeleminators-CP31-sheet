@@ -131,49 +131,27 @@ vll sieve(int n)
 // Data structures
 struct UnionFind
 {
-    vi parent, rank , size;
-    UnionFind(int n) : parent(n), rank(n, 0), size(n, 1)
+    vi parent, rank;
+    UnionFind(int n) : parent(n), rank(n, 0)
     {
         for (int i = 0; i < n; i++)
             parent[i] = i;
     }
-    int find(int x)    // find ultimate parent of x
-                       // with path compression
+    int find(int x)
     {
         if (parent[x] != x)
             parent[x] = find(parent[x]);
         return parent[x];
     }
-    void UnionByRank(int x, int y)  // union by rank
+    void unite(int x, int y)
     {
         x = find(x), y = find(y);
         if (x == y)
             return;
         if (rank[x] < rank[y])
             parent[x] = y;
-        else if ( rank[x] > rank[y])
-            parent[y] = x;
         else
-        {
-            parent[y] = x;
-            rank[x]++;
-        }
-    }
-    void UnionBySize(int x, int y)  // union by size
-    {
-        x = find(x), y = find(y);
-        if (x == y)
-            return;
-        if (size[x] < size[y])
-        {
-            parent[x] = y;
-            size[y] += size[x];
-        }
-        else
-        {
-            parent[y] = x;
-            size[x] += size[y];
-        }
+            parent[y] = x, rank[x] += rank[x] == rank[y];
     }
 };
 
